@@ -24,7 +24,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
         let masterNavigationController = splitViewController.viewControllers[0] as! UINavigationController
         let controller = masterNavigationController.topViewController as! MasterViewController
+        self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
         controller.managedObjectContext = self.persistentContainer.viewContext
+        
+        ComicManager.loadComicsIntoContext(self.persistentContainer.newBackgroundContext())
+        
+//        ComicFetcher.fetcComicWithNumber(nil) { (json) in
+//            guard let json = json else {
+//                NSLog("Failed to fetch comic.")
+//                return
+//            }
+//
+//            NSLog("Fetched comic:\n\(json)")
+//        }
+//        ComicFetcher.collectStatsForAllComics()
+        
         return true
     }
 

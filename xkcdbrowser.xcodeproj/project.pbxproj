@@ -16,6 +16,15 @@
 		8BF22B4621A9F7BC0047EBD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF22B4421A9F7BC0047EBD2 /* LaunchScreen.storyboard */; };
 		8BF22B5121A9F7BC0047EBD2 /* xkcdbrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B5021A9F7BC0047EBD2 /* xkcdbrowserTests.swift */; };
 		8BF22B5C21A9F7BC0047EBD2 /* xkcdbrowserUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B5B21A9F7BC0047EBD2 /* xkcdbrowserUITests.swift */; };
+		8BF22B6A21A9FD450047EBD2 /* ComicFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */; };
+		8BF22B6B21A9FD450047EBD2 /* ComicFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */; };
+		8BF22B6D21AA6DA70047EBD2 /* ComicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6C21AA6DA70047EBD2 /* ComicManager.swift */; };
+		8BF22B7121AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6F21AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift */; };
+		8BF22B7221AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6F21AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift */; };
+		8BF22B7321AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */; };
+		8BF22B7421AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */; };
+		8BF22B7721AB32B30047EBD2 /* ComicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6C21AA6DA70047EBD2 /* ComicManager.swift */; };
+		8BF22B7821AB32C10047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +60,10 @@
 		8BF22B5721A9F7BC0047EBD2 /* xkcdbrowserUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = xkcdbrowserUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF22B5B21A9F7BC0047EBD2 /* xkcdbrowserUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xkcdbrowserUITests.swift; sourceTree = "<group>"; };
 		8BF22B5D21A9F7BC0047EBD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicFetcher.swift; sourceTree = "<group>"; };
+		8BF22B6C21AA6DA70047EBD2 /* ComicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicManager.swift; sourceTree = "<group>"; };
+		8BF22B6F21AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManagedComic+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManagedComic+CoreDataClass.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,12 +116,16 @@
 			children = (
 				8BF22B3621A9F7BA0047EBD2 /* AppDelegate.swift */,
 				8BF22B3B21A9F7BA0047EBD2 /* MasterViewController.swift */,
+				8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */,
+				8BF22B6C21AA6DA70047EBD2 /* ComicManager.swift */,
 				8BF22B3D21A9F7BA0047EBD2 /* DetailViewController.swift */,
 				8BF22B3F21A9F7BA0047EBD2 /* Main.storyboard */,
 				8BF22B4221A9F7BC0047EBD2 /* Assets.xcassets */,
 				8BF22B4421A9F7BC0047EBD2 /* LaunchScreen.storyboard */,
 				8BF22B4721A9F7BC0047EBD2 /* Info.plist */,
 				8BF22B3821A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld */,
+				8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */,
+				8BF22B6F21AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift */,
 			);
 			path = xkcdbrowser;
 			sourceTree = "<group>";
@@ -262,9 +279,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BF22B6D21AA6DA70047EBD2 /* ComicManager.swift in Sources */,
+				8BF22B6A21A9FD450047EBD2 /* ComicFetcher.swift in Sources */,
 				8BF22B3A21A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld in Sources */,
+				8BF22B7121AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift in Sources */,
 				8BF22B3721A9F7BA0047EBD2 /* AppDelegate.swift in Sources */,
 				8BF22B3C21A9F7BA0047EBD2 /* MasterViewController.swift in Sources */,
+				8BF22B7321AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */,
 				8BF22B3E21A9F7BA0047EBD2 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +295,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BF22B5121A9F7BC0047EBD2 /* xkcdbrowserTests.swift in Sources */,
+				8BF22B6B21A9FD450047EBD2 /* ComicFetcher.swift in Sources */,
+				8BF22B7421AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */,
+				8BF22B7721AB32B30047EBD2 /* ComicManager.swift in Sources */,
+				8BF22B7221AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +306,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BF22B7821AB32C10047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */,
 				8BF22B5C21A9F7BC0047EBD2 /* xkcdbrowserUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
