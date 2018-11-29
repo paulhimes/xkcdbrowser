@@ -39,7 +39,6 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xFB-eg-GpD">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                        <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="603" placeholder="YES" id="EH2-2a-Teu"/>
                                             <constraint firstAttribute="width" constant="375" placeholder="YES" id="X4m-us-5vx"/>
@@ -57,7 +56,7 @@
                                 </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="fro-MC-gn3" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" id="1Lb-fW-yzr"/>
                             <constraint firstItem="fro-MC-gn3" firstAttribute="top" secondItem="svH-Pt-448" secondAttribute="top" id="Mwu-Bb-rJ3"/>
@@ -160,4 +159,5 @@
     <inferredMetricsTieBreakers>
         <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.58985793590545654" green="0.65963548421859741" blue="0.78537815809249878" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

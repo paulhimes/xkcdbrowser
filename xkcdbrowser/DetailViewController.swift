@@ -18,13 +18,19 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
     
-//    private let margin: CGFloat = 8
+    private let margin: CGFloat = 8
     
     private var containerSize: CGSize {
-//        return view.bounds.size
         let containerWidth = view.bounds.size.width - view.safeAreaInsets.left - view.safeAreaInsets.right
         let containerHeight = view.bounds.size.height - view.safeAreaInsets.top - view.safeAreaInsets.bottom
         return CGSize(width: containerWidth, height: containerHeight)
+    }
+    
+    private var scaledImageSize: CGSize {
+        guard let imageSize = imageView.image?.size else {
+            return .zero
+        }
+        return CGSize(width: imageSize.width * scrollView.zoomScale, height: imageSize.height * scrollView.zoomScale)
     }
     
     func configureView() {
@@ -48,15 +54,15 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
             return
         }
 
-        let widthScale = containerSize.width / image.size.width
-        let heightScale = containerSize.height / image.size.height
+        let widthScale = (containerSize.width - margin * 2) / image.size.width
+        let heightScale = (containerSize.height - margin * 2) / image.size.height
         let minScale = min(widthScale, heightScale)
         
         let maxScale = max(widthScale, heightScale)
         
         scrollView.minimumZoomScale = min(1, minScale)
         scrollView.maximumZoomScale = maxScale
-        scrollView.zoomScale = minScale
+        scrollView.zoomScale = scrollView.minimumZoomScale
     }
 
     override func viewDidLoad() {
@@ -85,23 +91,13 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     private func updateConstraints() {
-        guard let imageSize = imageView.image?.size else {
-            imageViewLeadingConstraint.constant = 0
-            imageViewTrailingConstraint.constant = 0
-            imageViewTopConstraint.constant = 0
-            imageViewBottomConstraint.constant = 0
-            return
-        }
-
-        let xPadding = max(0, (containerSize.width - (imageSize.width * scrollView.zoomScale)) / 2)
+        let xPadding = max(0, (containerSize.width - scaledImageSize.width) / 2)
         imageViewLeadingConstraint.constant = xPadding
         imageViewTrailingConstraint.constant = xPadding
 
-        let yPadding = max(0, (containerSize.height - (imageSize.height * scrollView.zoomScale)) / 2)
+        let yPadding = max(0, (containerSize.height - scaledImageSize.height) / 2)
         imageViewTopConstraint.constant = yPadding
         imageViewBottomConstraint.constant = yPadding
-
-        NSLog("container size = (\(containerSize.width),\(containerSize.height)), image size = (\(imageSize.width),\(imageSize.height)), scrollView zoom = \(scrollView.zoomScale), scaled image size = (\(imageSize.width * scrollView.zoomScale),\(imageSize.height * scrollView.zoomScale)), xPadding = \(xPadding), yPadding = \(yPadding)")
 
         view.layoutIfNeeded()
     }
