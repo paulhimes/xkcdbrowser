@@ -13,9 +13,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     var managedObjectContext: NSManagedObjectContext? = nil
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.navigationBar
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     override func viewWillAppear(_ animated: Bool) {

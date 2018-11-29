@@ -18,6 +18,13 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var imageViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewTrailingConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var moreDetailsView: UIView!
+    @IBOutlet weak var alternateTextLabel: UILabel!
+    @IBOutlet weak var linkButton: UIButton!
+    
+    @IBOutlet var zoomDoubleTapGestureRecognizer: UITapGestureRecognizer!
+    @IBOutlet var toggleTapGestureRecognizer: UITapGestureRecognizer!
+    
     private let margin: CGFloat = 8
     
     private var containerSize: CGSize {
@@ -33,15 +40,26 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         return CGSize(width: imageSize.width * scrollView.zoomScale, height: imageSize.height * scrollView.zoomScale)
     }
     
+    var detailItem: ManagedComic? {
+        didSet {
+            configureView()
+        }
+    }
+    
     func configureView() {
         guard let comic = detailItem else { return }
         title = comic.safeTitle
         
+        alternateTextLabel?.text = comic.alternateText
+        linkButton?.isHidden = comic.link == nil
+        
         URLSession.shared.dataTask(with: comic.image) { [weak self] (data, response, error) in
             guard let data = data, let image = UIImage(data: data) else { return }
             DispatchQueue.main.async {
-                self?.imageView.image = image
-                self?.updateZoomScales()
+                if let imageView = self?.imageView {
+                    imageView.image = image
+                    self?.updateZoomScales()
+                }
             }
         }.resume()
     }
@@ -65,9 +83,14 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         scrollView.zoomScale = scrollView.minimumZoomScale
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        toggleTapGestureRecognizer.require(toFail: zoomDoubleTapGestureRecognizer)
     }
     
     override func viewDidLayoutSubviews() {
@@ -76,11 +99,56 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         updateConstraints()
     }
 
-    var detailItem: ManagedComic? {
-        didSet {
-            configureView()
-        }
+    @IBAction func linkAction(_ sender: Any) {
+        guard let link = detailItem?.link else { return }
+        UIApplication.shared.open(link, options: [:], completionHandler: nil)
     }
+    
+    @IBAction func toggleAction(_ sender: Any) {
+        UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) { [weak self] in
+            guard let moreDetailsView = self?.moreDetailsView else { return }
+            moreDetailsView.alpha = moreDetailsView.alpha < 1 ? 1 : 0
+        }.startAnimation()
+    }
+    
+    @IBAction func zoomAction(_ sender: Any) {
+        guard moreDetailsView.alpha < 1 else { return }
+        
+        let zoomScaleStops = [scrollView.minimumZoomScale, 1, scrollView.maximumZoomScale].sorted { $0 < $1 }
+
+        UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) { [weak self] in
+            guard let scrollView = self?.scrollView else { return }
+            for zoomScaleStop in zoomScaleStops {
+                if scrollView.zoomScale < zoomScaleStop {
+                    scrollView.zoomScale = zoomScaleStop
+                    break
+                } else if zoomScaleStop == zoomScaleStops.last! {
+                    scrollView.zoomScale = zoomScaleStops.first!
+                }
+            }
+        }.startAnimation()
+    }
+    
+    @IBAction func shareAction(_ sender: Any) {
+        guard let comic = detailItem else { return }
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let url = URL(string: "https://xkcd.com/\(comic.number)")!
+        let image = imageView.image!
+        
+        actionSheet.addAction(UIAlertAction(title: "Share", style: .default) { [weak self] (action) in
+            let activityController = UIActivityViewController(activityItems: [comic.safeTitle, image, url], applicationActivities: nil)
+            self?.present(activityController, animated: true, completion: nil)
+        })
+        actionSheet.addAction(UIAlertAction(title: "Visit Website", style: .default) { (action) in
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        })
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
+    // MARK: - UIScrollViewDelegate
 
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
