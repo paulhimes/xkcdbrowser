@@ -34,31 +34,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Detail view content goes here" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="0XM-y9-sOw">
-                                <rect key="frame" x="20" y="323.5" width="335" height="20.5"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="always" translatesAutoresizingMaskIntoConstraints="NO" id="fro-MC-gn3">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xFB-eg-GpD">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="603" placeholder="YES" id="EH2-2a-Teu"/>
+                                            <constraint firstAttribute="width" constant="375" placeholder="YES" id="X4m-us-5vx"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="xFB-eg-GpD" secondAttribute="bottom" id="7U2-8w-4dj"/>
+                                    <constraint firstItem="xFB-eg-GpD" firstAttribute="top" secondItem="fro-MC-gn3" secondAttribute="top" id="DUd-Qg-Ts3"/>
+                                    <constraint firstAttribute="trailing" secondItem="xFB-eg-GpD" secondAttribute="trailing" id="h9c-aU-J5n"/>
+                                    <constraint firstItem="xFB-eg-GpD" firstAttribute="leading" secondItem="fro-MC-gn3" secondAttribute="leading" id="vb1-Zh-nDN"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="JEX-9P-axG" id="sPY-G3-nkY"/>
+                                </connections>
+                            </scrollView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="0XM-y9-sOw" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="20" symbolic="YES" id="Tsc-yG-G1q"/>
-                            <constraint firstItem="0XM-y9-sOw" firstAttribute="centerY" secondItem="svH-Pt-448" secondAttribute="centerY" id="jWN-iV-94e"/>
-                            <constraint firstAttribute="trailing" secondItem="0XM-y9-sOw" secondAttribute="trailing" constant="20" symbolic="YES" id="tHV-ZD-HQj"/>
+                            <constraint firstItem="fro-MC-gn3" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" id="1Lb-fW-yzr"/>
+                            <constraint firstItem="fro-MC-gn3" firstAttribute="top" secondItem="svH-Pt-448" secondAttribute="top" id="Mwu-Bb-rJ3"/>
+                            <constraint firstAttribute="trailing" secondItem="fro-MC-gn3" secondAttribute="trailing" id="eBp-kg-ap5"/>
+                            <constraint firstAttribute="bottom" secondItem="fro-MC-gn3" secondAttribute="bottom" id="sEA-AM-bsv"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VUw-jc-0yf"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM"/>
+                    <navigationItem key="navigationItem" title="Detail" id="mOI-FS-AaM">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="n2g-xx-69n"/>
+                    </navigationItem>
                     <connections>
-                        <outlet property="detailDescriptionLabel" destination="0XM-y9-sOw" id="deQ-Na-JPF"/>
+                        <outlet property="imageView" destination="xFB-eg-GpD" id="3zl-mP-OxL"/>
+                        <outlet property="imageViewBottomConstraint" destination="7U2-8w-4dj" id="qPL-Fq-G4v"/>
+                        <outlet property="imageViewLeadingConstraint" destination="vb1-Zh-nDN" id="BeD-3Q-X2F"/>
+                        <outlet property="imageViewTopConstraint" destination="DUd-Qg-Ts3" id="2zS-zn-Fib"/>
+                        <outlet property="imageViewTrailingConstraint" destination="h9c-aU-J5n" id="Spz-cx-Cnm"/>
+                        <outlet property="scrollView" destination="fro-MC-gn3" id="UMG-5L-58x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709" y="129"/>
+            <point key="canvasLocation" x="708" y="128.18590704647679"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
