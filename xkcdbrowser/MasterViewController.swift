@@ -43,7 +43,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             if let indexPath = tableView.indexPathForSelectedRow {
             let comic = fetchedResultsController.object(at: indexPath)
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.data = (comic, imageCache.object(forKey: comic.image.absoluteString as NSString))
+                controller.comic = comic
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -96,7 +96,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             cell.imageView?.image = MasterViewController.thumbnailFromImage(cachedImage)
         } else {
             guard let indexPath = indexPath else { return }
-            ComicFetcher.loadImageForURL(comic.image) { [weak self] (image) in
+            ComicFetcher.loadImageForURL(comic.image, highResolution: false) { [weak self] (image) in
                 guard let cell = self?.tableView.cellForRow(at: indexPath) else { return }
                 guard let image = image else {
                     cell.imageView?.image = nil

@@ -40,28 +40,29 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         return CGSize(width: imageSize.width * scrollView.zoomScale, height: imageSize.height * scrollView.zoomScale)
     }
     
-    var data: (comic: ManagedComic, image: UIImage?)? {
+    var comic: ManagedComic? {
         didSet {
             configureView()
         }
     }
     
     func configureView() {
-        guard let comic = data?.comic else { return }
+        guard let comic = comic else {
+            alternateTextLabel?.text = "Come back when you've chosen a comic to read."
+            linkButton?.isHidden = true
+            moreDetailsView?.alpha = 1
+            return
+        }
         title = comic.safeTitle
         
+        moreDetailsView?.alpha = 0
         alternateTextLabel?.text = comic.alternateText
         linkButton?.isHidden = comic.link == nil
         
-        if let imageView = imageView {
-            if let image = data?.image {
+        ComicFetcher.loadImageForURL(comic.image, highResolution: true) { [weak self] (image) in
+            if let imageView = self?.imageView {
                 imageView.image = image
-                updateZoomScales()
-            } else {
-                ComicFetcher.loadImageForURL(comic.image) { [weak self] (image) in
-                    self?.imageView.image = image
-                    self?.updateZoomScales()
-                }
+                self?.updateZoomScales()
             }
         }
     }
@@ -103,7 +104,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
     }
 
     @IBAction func linkAction(_ sender: Any) {
-        guard let link = data?.comic.link else { return }
+        guard let link = comic?.link else { return }
         UIApplication.shared.open(link, options: [:], completionHandler: nil)
     }
     
@@ -132,8 +133,8 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         }.startAnimation()
     }
     
-    @IBAction func shareAction(_ sender: Any) {
-        guard let comic = data?.comic else { return }
+    @IBAction func shareAction(_ sender: UIBarButtonItem) {
+        guard let comic = comic else { return }
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let url = URL(string: "https://xkcd.com/\(comic.number)")!
@@ -141,12 +142,15 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         
         actionSheet.addAction(UIAlertAction(title: "Share", style: .default) { [weak self] (action) in
             let activityController = UIActivityViewController(activityItems: [comic.safeTitle, image, url], applicationActivities: nil)
+            activityController.popoverPresentationController?.barButtonItem = sender
             self?.present(activityController, animated: true, completion: nil)
         })
         actionSheet.addAction(UIAlertAction(title: "Visit Website", style: .default) { (action) in
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         })
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        actionSheet.popoverPresentationController?.barButtonItem = sender
         
         present(actionSheet, animated: true, completion: nil)
     }

@@ -12,7 +12,6 @@ class ComicTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         let view = UIView()
         view.backgroundColor = UIColor(named: "xkcdBlue")
         selectedBackgroundView = view

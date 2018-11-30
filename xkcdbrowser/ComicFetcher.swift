@@ -56,9 +56,19 @@ struct ComicFetcher {
         }
     }
     
-    static func loadImageForURL(_ imageURL: URL, completion: @escaping (UIImage?) -> Void) {
-        URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
-            guard let data = data, let image = UIImage(data: data) else { return }
+    static func loadImageForURL(_ imageURL: URL, highResolution: Bool, completion: @escaping (UIImage?) -> Void) {
+        var modifiedURL = imageURL
+        if highResolution && !imageURL.absoluteString.contains("_2x.png") {
+            modifiedURL = URL(string: imageURL.absoluteString.replacingOccurrences(of: ".png", with: "_2x.png"))!
+        }
+        
+        URLSession.shared.dataTask(with: modifiedURL) { (data, response, error) in
+            guard let data = data, let image = UIImage(data: data) else {
+                if highResolution {
+                    loadImageForURL(imageURL, highResolution: false, completion: completion)
+                }
+                return
+            }
             DispatchQueue.main.async {
                 completion(image)
             }
