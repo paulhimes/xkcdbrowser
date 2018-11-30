@@ -1,5 +1,5 @@
 //
-//  MasterViewController.swift
+//  ComicsTableViewController.swift
 //  xkcdbrowser
 //
 //  Created by Paul Himes on 11/24/18.
@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
+class ComicsTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
 
     var managedObjectContext: NSManagedObjectContext? = nil
 
@@ -52,7 +52,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
             let comic = fetchedResultsController.object(at: indexPath)
-                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+                let controller = (segue.destination as! UINavigationController).topViewController as! ComicDetailsViewController
                 controller.comic = comic
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
@@ -94,7 +94,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     func configureCell(_ cell: UITableViewCell, forIndexPath indexPath: IndexPath?, withComic comic: ManagedComic) {
         cell.textLabel?.text = "\(comic.safeTitle)"
         cell.detailTextLabel?.text = "No. \(comic.number) • \(dateFormatter.string(from: comic.date))"
-        cell.imageView?.image = MasterViewController.thumbnailFromImage(UIImage())
+        cell.imageView?.image = ComicsTableViewController.thumbnailFromImage(UIImage())
         cell.imageView?.layer.shadowColor = UIColor.black.cgColor
         cell.imageView?.layer.shadowRadius = 2
         cell.imageView?.clipsToBounds = false
@@ -103,7 +103,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
         let imageURLString = comic.image.absoluteString
         if let cachedImage = imageCache.object(forKey: imageURLString as NSString) {
-            cell.imageView?.image = MasterViewController.thumbnailFromImage(cachedImage)
+            cell.imageView?.image = ComicsTableViewController.thumbnailFromImage(cachedImage)
         } else {
             guard let indexPath = indexPath else { return }
             ComicFetcher.loadImageForURL(comic.image, highResolution: false) { [weak self] (image) in
@@ -113,7 +113,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
                     return
                 }
                 self?.imageCache.setObject(image, forKey: imageURLString as NSString)
-                cell.imageView?.image = MasterViewController.thumbnailFromImage(image)
+                cell.imageView?.image = ComicsTableViewController.thumbnailFromImage(image)
             }
         }
     }
@@ -189,9 +189,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         if let searchString = searchController.searchBar.text, searchString.count > 0 {
-            let starryString = "*\(searchString.components(separatedBy: CharacterSet.alphanumerics.inverted).joined(separator: "*"))*"
+            let starryString = "*\(searchString.components(separatedBy: CharacterSet.alphanumerics.inverted).joined(separator: "*"))*".normalized
             let numberString = searchString.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-            fetchRequest.predicate = NSPredicate(format: "safeTitle LIKE[cd] %@ || number BEGINSWITH %@ || alternateText LIKE[cd] %@|| transcript LIKE[cd] %@", starryString, numberString, starryString, starryString)
+            fetchRequest.predicate = NSPredicate(format: "safeTitleNormalized LIKE %@ || number == %@ || alternateTextNormalized LIKE %@ || transcriptNormalized LIKE %@ || linkNormalized LIKE %@", starryString, numberString, starryString, starryString, starryString)
         }
         
         // Edit the section name key path and cache name if appropriate.

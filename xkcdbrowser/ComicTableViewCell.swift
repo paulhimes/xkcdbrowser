@@ -9,7 +9,6 @@
 import UIKit
 
 class ComicTableViewCell: UITableViewCell {
-
     override func awakeFromNib() {
         super.awakeFromNib()
         let view = UIView()

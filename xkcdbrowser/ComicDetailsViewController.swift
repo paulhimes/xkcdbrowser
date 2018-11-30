@@ -1,5 +1,5 @@
 //
-//  DetailViewController.swift
+//  ComicDetailsViewController.swift
 //  xkcdbrowser
 //
 //  Created by Paul Himes on 11/24/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UIScrollViewDelegate {
+class ComicDetailsViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!

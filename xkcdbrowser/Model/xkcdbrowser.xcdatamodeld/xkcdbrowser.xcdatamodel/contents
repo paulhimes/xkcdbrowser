@@ -2,20 +2,24 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18B75" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ManagedComic" representedClassName="ManagedComic" syncable="YES">
         <attribute name="alternateText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alternateTextNormalized" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="image" attributeType="URI" syncable="YES"/>
         <attribute name="link" optional="YES" attributeType="URI" syncable="YES"/>
+        <attribute name="linkNormalized" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="news" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="number" attributeType="Integer 32" minValueString="1" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="safeTitle" attributeType="String" syncable="YES"/>
+        <attribute name="safeTitleNormalized" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <attribute name="transcript" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="transcriptNormalized" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="year" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <fetchIndex name="byNumberIndex">
             <fetchIndexElement property="number" type="Binary" order="descending"/>
         </fetchIndex>
     </entity>
     <elements>
-        <element name="ManagedComic" positionX="261" positionY="198" width="128" height="195"/>
+        <element name="ManagedComic" positionX="261" positionY="198" width="128" height="255"/>
     </elements>
 </model>

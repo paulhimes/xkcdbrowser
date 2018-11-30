@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		8BF22B3721A9F7BA0047EBD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3621A9F7BA0047EBD2 /* AppDelegate.swift */; };
 		8BF22B3A21A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3821A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld */; };
-		8BF22B3C21A9F7BA0047EBD2 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3B21A9F7BA0047EBD2 /* MasterViewController.swift */; };
-		8BF22B3E21A9F7BA0047EBD2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3D21A9F7BA0047EBD2 /* DetailViewController.swift */; };
+		8BF22B3C21A9F7BA0047EBD2 /* ComicsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3B21A9F7BA0047EBD2 /* ComicsTableViewController.swift */; };
+		8BF22B3E21A9F7BA0047EBD2 /* ComicDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3D21A9F7BA0047EBD2 /* ComicDetailsViewController.swift */; };
 		8BF22B4121A9F7BA0047EBD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF22B3F21A9F7BA0047EBD2 /* Main.storyboard */; };
 		8BF22B4321A9F7BC0047EBD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BF22B4221A9F7BC0047EBD2 /* Assets.xcassets */; };
 		8BF22B4621A9F7BC0047EBD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF22B4421A9F7BC0047EBD2 /* LaunchScreen.storyboard */; };
@@ -30,6 +30,8 @@
 		8BF22B9221B052800047EBD2 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9121B052800047EBD2 /* UIViewController+Helpers.swift */; };
 		8BF22B9421B0D32D0047EBD2 /* ComicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9321B0D32D0047EBD2 /* ComicTableViewCell.swift */; };
 		8BF22B9621B0E4070047EBD2 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9521B0E4070047EBD2 /* Theme.swift */; };
+		8BF22B9821B1C4F90047EBD2 /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9721B1C4F90047EBD2 /* String+Helpers.swift */; };
+		8BF22B9921B1C5B00047EBD2 /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9721B1C4F90047EBD2 /* String+Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,8 +55,8 @@
 		8BF22B3321A9F7BA0047EBD2 /* xkcdbrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xkcdbrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF22B3621A9F7BA0047EBD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BF22B3921A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = xkcdbrowser.xcdatamodel; sourceTree = "<group>"; };
-		8BF22B3B21A9F7BA0047EBD2 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		8BF22B3D21A9F7BA0047EBD2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		8BF22B3B21A9F7BA0047EBD2 /* ComicsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsTableViewController.swift; sourceTree = "<group>"; };
+		8BF22B3D21A9F7BA0047EBD2 /* ComicDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicDetailsViewController.swift; sourceTree = "<group>"; };
 		8BF22B4021A9F7BA0047EBD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8BF22B4221A9F7BC0047EBD2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BF22B4521A9F7BC0047EBD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 		8BF22B9121B052800047EBD2 /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
 		8BF22B9321B0D32D0047EBD2 /* ComicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicTableViewCell.swift; sourceTree = "<group>"; };
 		8BF22B9521B0E4070047EBD2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		8BF22B9721B1C4F90047EBD2 /* String+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Helpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,23 +127,13 @@
 		8BF22B3521A9F7BA0047EBD2 /* xkcdbrowser */ = {
 			isa = PBXGroup;
 			children = (
-				8BF22B3621A9F7BA0047EBD2 /* AppDelegate.swift */,
-				8BF22B9121B052800047EBD2 /* UIViewController+Helpers.swift */,
-				8BF22B9521B0E4070047EBD2 /* Theme.swift */,
-				8BF22B3B21A9F7BA0047EBD2 /* MasterViewController.swift */,
-				8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */,
-				8BF22B6C21AA6DA70047EBD2 /* ComicManager.swift */,
-				8BF22B3D21A9F7BA0047EBD2 /* DetailViewController.swift */,
 				8BF22B3F21A9F7BA0047EBD2 /* Main.storyboard */,
+				8BF22B3B21A9F7BA0047EBD2 /* ComicsTableViewController.swift */,
+				8BF22B3D21A9F7BA0047EBD2 /* ComicDetailsViewController.swift */,
 				8BF22B9321B0D32D0047EBD2 /* ComicTableViewCell.swift */,
-				8BF22B8F21AFC2BB0047EBD2 /* StatusBarStyleDelegatingSplitViewController.swift */,
-				8BF22B4221A9F7BC0047EBD2 /* Assets.xcassets */,
-				8BF22B4421A9F7BC0047EBD2 /* LaunchScreen.storyboard */,
-				8BF22B4721A9F7BC0047EBD2 /* Info.plist */,
-				8BF22B3821A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld */,
-				8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */,
-				8BF22B6F21AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift */,
-				8BF22B8D21AFC0210047EBD2 /* StatusBarStyleDelegatingNavigationController.swift */,
+				8BF22B9A21B1F56E0047EBD2 /* Model */,
+				8BF22B9B21B1F5DD0047EBD2 /* Utilities */,
+				8BF22B9C21B1F62D0047EBD2 /* Supporting Files */,
 			);
 			path = xkcdbrowser;
 			sourceTree = "<group>";
@@ -161,6 +154,41 @@
 				8BF22B5D21A9F7BC0047EBD2 /* Info.plist */,
 			);
 			path = xkcdbrowserUITests;
+			sourceTree = "<group>";
+		};
+		8BF22B9A21B1F56E0047EBD2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */,
+				8BF22B6C21AA6DA70047EBD2 /* ComicManager.swift */,
+				8BF22B3821A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld */,
+				8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */,
+				8BF22B6F21AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		8BF22B9B21B1F5DD0047EBD2 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				8BF22B9121B052800047EBD2 /* UIViewController+Helpers.swift */,
+				8BF22B9521B0E4070047EBD2 /* Theme.swift */,
+				8BF22B8F21AFC2BB0047EBD2 /* StatusBarStyleDelegatingSplitViewController.swift */,
+				8BF22B9721B1C4F90047EBD2 /* String+Helpers.swift */,
+				8BF22B8D21AFC0210047EBD2 /* StatusBarStyleDelegatingNavigationController.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		8BF22B9C21B1F62D0047EBD2 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8BF22B3621A9F7BA0047EBD2 /* AppDelegate.swift */,
+				8BF22B4221A9F7BC0047EBD2 /* Assets.xcassets */,
+				8BF22B4421A9F7BC0047EBD2 /* LaunchScreen.storyboard */,
+				8BF22B4721A9F7BC0047EBD2 /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,13 +328,14 @@
 				8BF22B6A21A9FD450047EBD2 /* ComicFetcher.swift in Sources */,
 				8BF22B9621B0E4070047EBD2 /* Theme.swift in Sources */,
 				8BF22B3A21A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld in Sources */,
+				8BF22B9821B1C4F90047EBD2 /* String+Helpers.swift in Sources */,
 				8BF22B7121AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift in Sources */,
 				8BF22B9021AFC2BB0047EBD2 /* StatusBarStyleDelegatingSplitViewController.swift in Sources */,
 				8BF22B3721A9F7BA0047EBD2 /* AppDelegate.swift in Sources */,
-				8BF22B3C21A9F7BA0047EBD2 /* MasterViewController.swift in Sources */,
+				8BF22B3C21A9F7BA0047EBD2 /* ComicsTableViewController.swift in Sources */,
 				8BF22B9221B052800047EBD2 /* UIViewController+Helpers.swift in Sources */,
 				8BF22B7321AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */,
-				8BF22B3E21A9F7BA0047EBD2 /* DetailViewController.swift in Sources */,
+				8BF22B3E21A9F7BA0047EBD2 /* ComicDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +345,7 @@
 			files = (
 				8BF22B5121A9F7BC0047EBD2 /* xkcdbrowserTests.swift in Sources */,
 				8BF22B6B21A9FD450047EBD2 /* ComicFetcher.swift in Sources */,
+				8BF22B9921B1C5B00047EBD2 /* String+Helpers.swift in Sources */,
 				8BF22B7421AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */,
 				8BF22B7721AB32B30047EBD2 /* ComicManager.swift in Sources */,
 				8BF22B7221AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift in Sources */,
