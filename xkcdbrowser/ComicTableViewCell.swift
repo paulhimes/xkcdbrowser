@@ -13,7 +13,7 @@ class ComicTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         let view = UIView()
-        view.backgroundColor = UIColor(named: "xkcdBlue")
+        view.backgroundColor = .xkcdBlueWithAlpha
         selectedBackgroundView = view
     }
 }

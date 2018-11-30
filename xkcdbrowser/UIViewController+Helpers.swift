@@ -11,7 +11,7 @@ import UIKit
 extension UIViewController {
     func styleNavigationBar() {
         navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.barTintColor = UIColor(named: "xkcdBlue")
+        navigationController?.navigationBar.barTintColor = .xkcdBlue
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white]

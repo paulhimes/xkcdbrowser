@@ -29,6 +29,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func viewDidLoad() {
         super.viewDidLoad()
         styleNavigationBar()
+        tableView.sectionIndexColor = .black
+        tableView.sectionIndexTrackingBackgroundColor = .xkcdBlueWithAlpha
     }
     
     override func viewWillAppear(_ animated: Bool) {

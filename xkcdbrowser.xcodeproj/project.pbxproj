@@ -29,6 +29,7 @@
 		8BF22B9021AFC2BB0047EBD2 /* StatusBarStyleDelegatingSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B8F21AFC2BB0047EBD2 /* StatusBarStyleDelegatingSplitViewController.swift */; };
 		8BF22B9221B052800047EBD2 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9121B052800047EBD2 /* UIViewController+Helpers.swift */; };
 		8BF22B9421B0D32D0047EBD2 /* ComicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9321B0D32D0047EBD2 /* ComicTableViewCell.swift */; };
+		8BF22B9621B0E4070047EBD2 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9521B0E4070047EBD2 /* Theme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		8BF22B8F21AFC2BB0047EBD2 /* StatusBarStyleDelegatingSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarStyleDelegatingSplitViewController.swift; sourceTree = "<group>"; };
 		8BF22B9121B052800047EBD2 /* UIViewController+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Helpers.swift"; sourceTree = "<group>"; };
 		8BF22B9321B0D32D0047EBD2 /* ComicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicTableViewCell.swift; sourceTree = "<group>"; };
+		8BF22B9521B0E4070047EBD2 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 			children = (
 				8BF22B3621A9F7BA0047EBD2 /* AppDelegate.swift */,
 				8BF22B9121B052800047EBD2 /* UIViewController+Helpers.swift */,
+				8BF22B9521B0E4070047EBD2 /* Theme.swift */,
 				8BF22B3B21A9F7BA0047EBD2 /* MasterViewController.swift */,
 				8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */,
 				8BF22B6C21AA6DA70047EBD2 /* ComicManager.swift */,
@@ -295,6 +298,7 @@
 				8BF22B9421B0D32D0047EBD2 /* ComicTableViewCell.swift in Sources */,
 				8BF22B8E21AFC0210047EBD2 /* StatusBarStyleDelegatingNavigationController.swift in Sources */,
 				8BF22B6A21A9FD450047EBD2 /* ComicFetcher.swift in Sources */,
+				8BF22B9621B0E4070047EBD2 /* Theme.swift in Sources */,
 				8BF22B3A21A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld in Sources */,
 				8BF22B7121AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift in Sources */,
 				8BF22B9021AFC2BB0047EBD2 /* StatusBarStyleDelegatingSplitViewController.swift in Sources */,
