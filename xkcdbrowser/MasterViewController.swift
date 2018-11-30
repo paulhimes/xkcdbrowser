@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
 
     var managedObjectContext: NSManagedObjectContext? = nil
 
@@ -22,6 +22,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         return formatter
     }()
     
+    private let searchController = UISearchController(searchResultsController: nil)
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -31,6 +33,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         styleNavigationBar()
         tableView.sectionIndexColor = .black
         tableView.sectionIndexTrackingBackgroundColor = .xkcdBlueWithAlpha
+        
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.tintColor = .white
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -180,6 +188,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         
         fetchRequest.sortDescriptors = [sortDescriptor]
         
+        if let searchString = searchController.searchBar.text, searchString.count > 0 {
+            let starryString = "*\(searchString.components(separatedBy: CharacterSet.alphanumerics.inverted).joined(separator: "*"))*"
+            let numberString = searchString.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+            fetchRequest.predicate = NSPredicate(format: "safeTitle LIKE[cd] %@ || number BEGINSWITH %@ || alternateText LIKE[cd] %@|| transcript LIKE[cd] %@", starryString, numberString, starryString, starryString)
+        }
+        
         // Edit the section name key path and cache name if appropriate.
         // nil for section name key path means "no sections".
         let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: "year", cacheName: nil)
@@ -234,6 +248,13 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
         return sectionName.replacingCharacters(in: sectionName.startIndex...sectionName.index(sectionName.startIndex, offsetBy: 1), with: "’")
+    }
+    
+    // MARK: - UISearchResultsUpdating
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        _fetchedResultsController = nil
+        tableView.reloadData()
     }
 }
 
