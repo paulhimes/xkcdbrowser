@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 private let currentComicURLString = "https://xkcd.com/info.0.json"
 private let numberedComicURLString = "https://xkcd.com/%u/info.0.json"
@@ -53,6 +54,15 @@ struct ComicFetcher {
                 fetchComicsWithNumbers(newFirst, through: last, completion: completion)
             }
         }
+    }
+    
+    static func loadImageForURL(_ imageURL: URL, completion: @escaping (UIImage?) -> Void) {
+        URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+            guard let data = data, let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                completion(image)
+            }
+        }.resume()
     }
     
 //    static func collectStatsForAllComics() {

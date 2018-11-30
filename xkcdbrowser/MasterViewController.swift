@@ -13,8 +13,22 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     var managedObjectContext: NSManagedObjectContext? = nil
 
+    private let imageCache = NSCache<NSString, UIImage>()
+    
+    private lazy var dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        styleNavigationBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -27,9 +41,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
             if let indexPath = tableView.indexPathForSelectedRow {
-            let object = fetchedResultsController.object(at: indexPath)
+            let comic = fetchedResultsController.object(at: indexPath)
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = object
+                controller.data = (comic, imageCache.object(forKey: comic.image.absoluteString as NSString))
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -63,12 +77,88 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let comic = fetchedResultsController.object(at: indexPath)
-        configureCell(cell, withComic: comic)
+        configureCell(cell, forIndexPath: indexPath, withComic: comic)
         return cell
     }
 
-    func configureCell(_ cell: UITableViewCell, withComic comic: ManagedComic) {
-        cell.textLabel!.text = "\(comic.number): \(comic.safeTitle)"
+    func configureCell(_ cell: UITableViewCell, forIndexPath indexPath: IndexPath?, withComic comic: ManagedComic) {
+        cell.textLabel?.text = "\(comic.safeTitle)"
+        cell.detailTextLabel?.text = "No. \(comic.number) • \(dateFormatter.string(from: comic.date))"
+        cell.imageView?.image = MasterViewController.thumbnailFromImage(UIImage())
+        cell.imageView?.layer.shadowColor = UIColor.black.cgColor
+        cell.imageView?.layer.shadowRadius = 2
+        cell.imageView?.clipsToBounds = false
+        cell.imageView?.layer.shadowOpacity = 0.1
+        cell.imageView?.layer.shadowOffset = CGSize(width: 2, height: 2)
+
+        let imageURLString = comic.image.absoluteString
+        if let cachedImage = imageCache.object(forKey: imageURLString as NSString) {
+            cell.imageView?.image = MasterViewController.thumbnailFromImage(cachedImage)
+        } else {
+            guard let indexPath = indexPath else { return }
+            ComicFetcher.loadImageForURL(comic.image) { [weak self] (image) in
+                guard let cell = self?.tableView.cellForRow(at: indexPath) else { return }
+                guard let image = image else {
+                    cell.imageView?.image = nil
+                    return
+                }
+                self?.imageCache.setObject(image, forKey: imageURLString as NSString)
+                cell.imageView?.image = MasterViewController.thumbnailFromImage(image)
+            }
+        }
+    }
+    
+    private static func thumbnailFromImage(_ image: UIImage) -> UIImage {
+        let baseThumbnailSize: Double = 60
+        let maximumRotationDegree: Double = 10
+        let radians = maximumRotationDegree * .pi / 180
+        let thumbnailSizeAfterRotation = (sin(radians) + cos(radians)) * baseThumbnailSize
+        
+        let thumbnailSize = CGSize(width: thumbnailSizeAfterRotation, height: thumbnailSizeAfterRotation)
+        UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 0)
+        
+        let context = UIGraphicsGetCurrentContext()
+        
+        context?.saveGState()
+        
+        context?.translateBy(x: thumbnailSize.width / 2, y: thumbnailSize.height / 2)
+        
+        var randomDegree = 0
+        for _ in 0..<10 {
+            randomDegree = Int(arc4random_uniform(UInt32(2 * maximumRotationDegree))) - Int(maximumRotationDegree)
+            if randomDegree != 0 {
+                break
+            }
+        }
+        
+        context?.rotate(by: CGFloat(randomDegree) * .pi / 180)
+
+        context?.translateBy(x: -thumbnailSize.width / 2, y: -thumbnailSize.height / 2)
+        
+        // Scale input image to fit base thumbnail size.
+        let scaledImageSize: CGSize
+        if image.size.width / image.size.height * CGFloat(baseThumbnailSize) > CGFloat(baseThumbnailSize) {
+            // Scale the width to fit.
+            scaledImageSize = CGSize(width: CGFloat(baseThumbnailSize),
+                                     height: image.size.height / image.size.width * CGFloat(baseThumbnailSize))
+        } else {
+            // Scale the height to fit.
+            scaledImageSize = CGSize(width: image.size.width / image.size.height * CGFloat(baseThumbnailSize),
+                                     height: CGFloat(baseThumbnailSize))
+        }
+        
+        let scaledImageRect = CGRect(x: (thumbnailSize.width - scaledImageSize.width) / 2,
+                                     y: (thumbnailSize.height - scaledImageSize.height) / 2,
+                                     width: scaledImageSize.width,
+                                     height: scaledImageSize.height)
+        
+        image.draw(in: scaledImageRect)
+        
+        context?.restoreGState()
+        
+        let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return thumbnailImage
     }
 
     // MARK: - Fetched results controller
@@ -129,9 +219,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             case .delete:
                 tableView.deleteRows(at: [indexPath!], with: .fade)
             case .update:
-                configureCell(tableView.cellForRow(at: indexPath!)!, withComic: anObject as! ManagedComic)
+                configureCell(tableView.cellForRow(at: indexPath!)!, forIndexPath: indexPath, withComic: anObject as! ManagedComic)
             case .move:
-                configureCell(tableView.cellForRow(at: indexPath!)!, withComic: anObject as! ManagedComic)
+                configureCell(tableView.cellForRow(at: indexPath!)!, forIndexPath: indexPath, withComic: anObject as! ManagedComic)
                 tableView.moveRow(at: indexPath!, to: newIndexPath!)
         }
     }

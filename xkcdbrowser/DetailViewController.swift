@@ -40,30 +40,32 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         return CGSize(width: imageSize.width * scrollView.zoomScale, height: imageSize.height * scrollView.zoomScale)
     }
     
-    var detailItem: ManagedComic? {
+    var data: (comic: ManagedComic, image: UIImage?)? {
         didSet {
             configureView()
         }
     }
     
     func configureView() {
-        guard let comic = detailItem else { return }
+        guard let comic = data?.comic else { return }
         title = comic.safeTitle
         
         alternateTextLabel?.text = comic.alternateText
         linkButton?.isHidden = comic.link == nil
         
-        URLSession.shared.dataTask(with: comic.image) { [weak self] (data, response, error) in
-            guard let data = data, let image = UIImage(data: data) else { return }
-            DispatchQueue.main.async {
-                if let imageView = self?.imageView {
-                    imageView.image = image
+        if let imageView = imageView {
+            if let image = data?.image {
+                imageView.image = image
+                updateZoomScales()
+            } else {
+                ComicFetcher.loadImageForURL(comic.image) { [weak self] (image) in
+                    self?.imageView.image = image
                     self?.updateZoomScales()
                 }
             }
-        }.resume()
+        }
     }
-    
+
     // Update minimum zoom scale based on image size vs scrollview size.
     fileprivate func updateZoomScales() {
         guard let image = imageView.image else {
@@ -91,6 +93,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         configureView()
         toggleTapGestureRecognizer.require(toFail: zoomDoubleTapGestureRecognizer)
+        styleNavigationBar()
     }
     
     override func viewDidLayoutSubviews() {
@@ -100,7 +103,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
     }
 
     @IBAction func linkAction(_ sender: Any) {
-        guard let link = detailItem?.link else { return }
+        guard let link = data?.comic.link else { return }
         UIApplication.shared.open(link, options: [:], completionHandler: nil)
     }
     
@@ -130,7 +133,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func shareAction(_ sender: Any) {
-        guard let comic = detailItem else { return }
+        guard let comic = data?.comic else { return }
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let url = URL(string: "https://xkcd.com/\(comic.number)")!
