@@ -96,6 +96,10 @@ struct ComicFetcher {
                 if highResolution {
                     // The high resolution image download failed, fall back to normal resolution.
                     loadImageForURL(imageURL, highResolution: false, completion: completion)
+                } else {
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
                 }
                 return
             }

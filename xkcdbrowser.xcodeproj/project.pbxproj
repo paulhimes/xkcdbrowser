@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B4974A921B2541A0035F00E /* ComicFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4974A821B2541A0035F00E /* ComicFetcherTests.swift */; };
+		8B4974AC21B273630035F00E /* ComicManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4974AB21B273630035F00E /* ComicManagerTests.swift */; };
+		8B4974AD21B27D080035F00E /* ManagedComic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */; };
+		8B4974B521B281D60035F00E /* xkcdbrowser.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3821A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld */; };
 		8BF22B3721A9F7BA0047EBD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3621A9F7BA0047EBD2 /* AppDelegate.swift */; };
 		8BF22B3A21A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3821A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld */; };
 		8BF22B3C21A9F7BA0047EBD2 /* ComicsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3B21A9F7BA0047EBD2 /* ComicsTableViewController.swift */; };
@@ -14,23 +18,16 @@
 		8BF22B4121A9F7BA0047EBD2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF22B3F21A9F7BA0047EBD2 /* Main.storyboard */; };
 		8BF22B4321A9F7BC0047EBD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BF22B4221A9F7BC0047EBD2 /* Assets.xcassets */; };
 		8BF22B4621A9F7BC0047EBD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF22B4421A9F7BC0047EBD2 /* LaunchScreen.storyboard */; };
-		8BF22B5121A9F7BC0047EBD2 /* xkcdbrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B5021A9F7BC0047EBD2 /* xkcdbrowserTests.swift */; };
+		8BF22B5121A9F7BC0047EBD2 /* StringHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B5021A9F7BC0047EBD2 /* StringHelperTests.swift */; };
 		8BF22B6A21A9FD450047EBD2 /* ComicFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */; };
-		8BF22B6B21A9FD450047EBD2 /* ComicFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */; };
 		8BF22B6D21AA6DA70047EBD2 /* ComicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6C21AA6DA70047EBD2 /* ComicManager.swift */; };
 		8BF22B7121AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6F21AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift */; };
-		8BF22B7221AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6F21AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift */; };
-		8BF22B7321AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */; };
-		8BF22B7421AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */; };
-		8BF22B7721AB32B30047EBD2 /* ComicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6C21AA6DA70047EBD2 /* ComicManager.swift */; };
-		8BF22B7821AB32C10047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */; };
 		8BF22B8E21AFC0210047EBD2 /* StatusBarStyleDelegatingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B8D21AFC0210047EBD2 /* StatusBarStyleDelegatingNavigationController.swift */; };
 		8BF22B9021AFC2BB0047EBD2 /* StatusBarStyleDelegatingSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B8F21AFC2BB0047EBD2 /* StatusBarStyleDelegatingSplitViewController.swift */; };
 		8BF22B9221B052800047EBD2 /* UIViewController+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9121B052800047EBD2 /* UIViewController+Helpers.swift */; };
 		8BF22B9421B0D32D0047EBD2 /* ComicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9321B0D32D0047EBD2 /* ComicTableViewCell.swift */; };
 		8BF22B9621B0E4070047EBD2 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9521B0E4070047EBD2 /* Theme.swift */; };
 		8BF22B9821B1C4F90047EBD2 /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9721B1C4F90047EBD2 /* String+Helpers.swift */; };
-		8BF22B9921B1C5B00047EBD2 /* String+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B9721B1C4F90047EBD2 /* String+Helpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,16 +38,11 @@
 			remoteGlobalIDString = 8BF22B3221A9F7BA0047EBD2;
 			remoteInfo = xkcdbrowser;
 		};
-		8BF22B5821A9F7BC0047EBD2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8BF22B2B21A9F7BA0047EBD2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8BF22B3221A9F7BA0047EBD2;
-			remoteInfo = xkcdbrowser;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8B4974A821B2541A0035F00E /* ComicFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicFetcherTests.swift; sourceTree = "<group>"; };
+		8B4974AB21B273630035F00E /* ComicManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicManagerTests.swift; sourceTree = "<group>"; };
 		8BF22B3321A9F7BA0047EBD2 /* xkcdbrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xkcdbrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF22B3621A9F7BA0047EBD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BF22B3921A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = xkcdbrowser.xcdatamodel; sourceTree = "<group>"; };
@@ -61,9 +53,8 @@
 		8BF22B4521A9F7BC0047EBD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BF22B4721A9F7BC0047EBD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BF22B4C21A9F7BC0047EBD2 /* xkcdbrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = xkcdbrowserTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8BF22B5021A9F7BC0047EBD2 /* xkcdbrowserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xkcdbrowserTests.swift; sourceTree = "<group>"; };
+		8BF22B5021A9F7BC0047EBD2 /* StringHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHelperTests.swift; sourceTree = "<group>"; };
 		8BF22B5221A9F7BC0047EBD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8BF22B5721A9F7BC0047EBD2 /* xkcdbrowserUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = xkcdbrowserUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF22B5B21A9F7BC0047EBD2 /* xkcdbrowserUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = xkcdbrowserUITests.swift; sourceTree = "<group>"; };
 		8BF22B5D21A9F7BC0047EBD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicFetcher.swift; sourceTree = "<group>"; };
@@ -93,13 +84,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8BF22B5421A9F7BC0047EBD2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -118,7 +102,6 @@
 			children = (
 				8BF22B3321A9F7BA0047EBD2 /* xkcdbrowser.app */,
 				8BF22B4C21A9F7BC0047EBD2 /* xkcdbrowserTests.xctest */,
-				8BF22B5721A9F7BC0047EBD2 /* xkcdbrowserUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,7 +123,9 @@
 		8BF22B4F21A9F7BC0047EBD2 /* xkcdbrowserTests */ = {
 			isa = PBXGroup;
 			children = (
-				8BF22B5021A9F7BC0047EBD2 /* xkcdbrowserTests.swift */,
+				8BF22B5021A9F7BC0047EBD2 /* StringHelperTests.swift */,
+				8B4974A821B2541A0035F00E /* ComicFetcherTests.swift */,
+				8B4974AB21B273630035F00E /* ComicManagerTests.swift */,
 				8BF22B5221A9F7BC0047EBD2 /* Info.plist */,
 			);
 			path = xkcdbrowserTests;
@@ -228,24 +213,6 @@
 			productReference = 8BF22B4C21A9F7BC0047EBD2 /* xkcdbrowserTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		8BF22B5621A9F7BC0047EBD2 /* xkcdbrowserUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8BF22B6621A9F7BC0047EBD2 /* Build configuration list for PBXNativeTarget "xkcdbrowserUITests" */;
-			buildPhases = (
-				8BF22B5321A9F7BC0047EBD2 /* Sources */,
-				8BF22B5421A9F7BC0047EBD2 /* Frameworks */,
-				8BF22B5521A9F7BC0047EBD2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8BF22B5921A9F7BC0047EBD2 /* PBXTargetDependency */,
-			);
-			name = xkcdbrowserUITests;
-			productName = xkcdbrowserUITests;
-			productReference = 8BF22B5721A9F7BC0047EBD2 /* xkcdbrowserUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -260,10 +227,6 @@
 						CreatedOnToolsVersion = 10.1;
 					};
 					8BF22B4B21A9F7BC0047EBD2 = {
-						CreatedOnToolsVersion = 10.1;
-						TestTargetID = 8BF22B3221A9F7BA0047EBD2;
-					};
-					8BF22B5621A9F7BC0047EBD2 = {
 						CreatedOnToolsVersion = 10.1;
 						TestTargetID = 8BF22B3221A9F7BA0047EBD2;
 					};
@@ -284,7 +247,6 @@
 			targets = (
 				8BF22B3221A9F7BA0047EBD2 /* xkcdbrowser */,
 				8BF22B4B21A9F7BC0047EBD2 /* xkcdbrowserTests */,
-				8BF22B5621A9F7BC0047EBD2 /* xkcdbrowserUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -307,13 +269,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8BF22B5521A9F7BC0047EBD2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -329,11 +284,11 @@
 				8BF22B3A21A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld in Sources */,
 				8BF22B9821B1C4F90047EBD2 /* String+Helpers.swift in Sources */,
 				8BF22B7121AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift in Sources */,
+				8B4974AD21B27D080035F00E /* ManagedComic+CoreDataClass.swift in Sources */,
 				8BF22B9021AFC2BB0047EBD2 /* StatusBarStyleDelegatingSplitViewController.swift in Sources */,
 				8BF22B3721A9F7BA0047EBD2 /* AppDelegate.swift in Sources */,
 				8BF22B3C21A9F7BA0047EBD2 /* ComicsTableViewController.swift in Sources */,
 				8BF22B9221B052800047EBD2 /* UIViewController+Helpers.swift in Sources */,
-				8BF22B7321AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */,
 				8BF22B3E21A9F7BA0047EBD2 /* ComicDetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,20 +297,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BF22B5121A9F7BC0047EBD2 /* xkcdbrowserTests.swift in Sources */,
-				8BF22B6B21A9FD450047EBD2 /* ComicFetcher.swift in Sources */,
-				8BF22B9921B1C5B00047EBD2 /* String+Helpers.swift in Sources */,
-				8BF22B7421AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */,
-				8BF22B7721AB32B30047EBD2 /* ComicManager.swift in Sources */,
-				8BF22B7221AB31CF0047EBD2 /* ManagedComic+CoreDataProperties.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8BF22B5321A9F7BC0047EBD2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8BF22B7821AB32C10047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */,
+				8BF22B5121A9F7BC0047EBD2 /* StringHelperTests.swift in Sources */,
+				8B4974A921B2541A0035F00E /* ComicFetcherTests.swift in Sources */,
+				8B4974B521B281D60035F00E /* xkcdbrowser.xcdatamodeld in Sources */,
+				8B4974AC21B273630035F00E /* ComicManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,11 +311,6 @@
 			isa = PBXTargetDependency;
 			target = 8BF22B3221A9F7BA0047EBD2 /* xkcdbrowser */;
 			targetProxy = 8BF22B4D21A9F7BC0047EBD2 /* PBXContainerItemProxy */;
-		};
-		8BF22B5921A9F7BC0047EBD2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8BF22B3221A9F7BA0047EBD2 /* xkcdbrowser */;
-			targetProxy = 8BF22B5821A9F7BC0047EBD2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -588,46 +528,6 @@
 			};
 			name = Release;
 		};
-		8BF22B6721A9F7BC0047EBD2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U48P68REXM;
-				INFOPLIST_FILE = xkcdbrowserUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tnwsl.xkcdbrowserUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = xkcdbrowser;
-			};
-			name = Debug;
-		};
-		8BF22B6821A9F7BC0047EBD2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = U48P68REXM;
-				INFOPLIST_FILE = xkcdbrowserUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.tnwsl.xkcdbrowserUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = xkcdbrowser;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -654,15 +554,6 @@
 			buildConfigurations = (
 				8BF22B6421A9F7BC0047EBD2 /* Debug */,
 				8BF22B6521A9F7BC0047EBD2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8BF22B6621A9F7BC0047EBD2 /* Build configuration list for PBXNativeTarget "xkcdbrowserUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8BF22B6721A9F7BC0047EBD2 /* Debug */,
-				8BF22B6821A9F7BC0047EBD2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
