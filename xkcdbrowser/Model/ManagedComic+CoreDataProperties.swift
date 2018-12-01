@@ -8,7 +8,9 @@
 import Foundation
 import CoreData
 
-
+/**
+ The core data representation of a comic. See `ComicFetcher.swift` for more information about the individual attributes.
+ */
 extension ManagedComic {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ManagedComic> {
@@ -30,6 +32,7 @@ extension ManagedComic {
     @NSManaged public var transcriptNormalized: String?
     @NSManaged public var year: Int32
 
+    // Update dependant attributes if necessary.
     public override func willSave() {
         if alternateTextNormalized != alternateText?.normalized {
             alternateTextNormalized = alternateText?.normalized

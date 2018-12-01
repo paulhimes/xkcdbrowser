@@ -9,12 +9,21 @@
 import UIKit
 import CoreData
 
+/**
+ Manages the core data database.
+ Uses the ComicFetcher to download comics then converts them to `ManagedComic` instances and saves them locally.
+ */
 class ComicManager {
+    
+    // Batch saving to improve performance.
+    private static let batchSize = 200
+    private static let batchingThreshold = 50
+    
+    /**
+     Downloads any missing comics newer or older and saves them to the core data database.
+     - Parameter context: The context used to save the comics to the database. **Preferably a background context.**
+     */
     static func loadComicsIntoContext(_ context: NSManagedObjectContext) {
-        
-//        Batch the saves to core data after the first few dozen to improve scrolling performance while the data is being loaded.
-        
-        
         context.perform {
             let fetchRequest: NSFetchRequest<ManagedComic> = ManagedComic.fetchRequest()
             fetchRequest.fetchLimit = 1
@@ -28,7 +37,8 @@ class ComicManager {
             if let oldestComicNumber = oldestComicNumber, oldestComicNumber > 1 {
                 NSLog("Loading older comics from \(oldestComicNumber - 1) to 1")
                 ComicFetcher.fetchComicsWithNumbers(UInt(oldestComicNumber) - 1, through: 1) { (comic) in
-                    createOrUpdateComic(with: comic, in: context)
+                    let forceSave = comic?.number == 1 ? true : false
+                    addComicToBatch(comic, context: context, forceSave: forceSave)
                 }
             }
             
@@ -40,13 +50,15 @@ class ComicManager {
                     // If we have a newest comic, fetch all numbers between it and the current comic, including the current comic.
                     NSLog("Loading newer comics from \(newestComicNumber + 1) to \(currentComicNumber)")
                     ComicFetcher.fetchComicsWithNumbers(UInt(newestComicNumber) + 1, through: currentComicNumber) { (comic) in
-                        createOrUpdateComic(with: comic, in: context)
+                        let forceSave = comic?.number == currentComicNumber ? true : false
+                        addComicToBatch(comic, context: context, forceSave: forceSave)
                     }
                 } else if newestComicNumber == nil {
                     // If we have no comics, fetch all numbers between the current comic and 0, including the current comic.
                     NSLog("Loading all comics from \(currentComicNumber) to 1")
                     ComicFetcher.fetchComicsWithNumbers(currentComicNumber, through: 1) { (comic) in
-                        createOrUpdateComic(with: comic, in: context)
+                        let forceSave = comic?.number == 1 ? true : false
+                        addComicToBatch(comic, context: context, forceSave: forceSave)
                     }
                 } else {
                     // Already up-to-date.
@@ -56,41 +68,59 @@ class ComicManager {
         }
     }
     
-    private static var totalCreatedOrUpdatedThisRun = 0
-    private static var currentBatch: [Comic] = []
-    private static let batchSize = 50
-    private static let batchingThreshold = 100
-    
-    private static func createOrUpdateComic(with comic: Comic?, in context: NSManagedObjectContext) {
-        guard let comic = comic else { return }
-        currentBatch.append(comic)
-        
-        totalCreatedOrUpdatedThisRun += 1
-        if totalCreatedOrUpdatedThisRun > batchingThreshold, currentBatch.count < batchSize, comic.number > 1 {
-            return
+    /**
+     Adds a downloaded comic to a batch waiting to be saved to the local database.
+     - Parameters:
+        - comic: The comic to save.
+        - context: The context to save into.
+        - forceSave: Flag to save all pending comics immediately.
+     */
+    private static func addComicToBatch(_ comic: Comic?, context: NSManagedObjectContext, forceSave: Bool) {
+        // Function-scoped struct to prevent others from accessing these properties.
+        struct BatchQueue {
+            // Batch Queue and queue-managed properties.
+            static let queue = DispatchQueue(label: "comicBatchQueue", qos: .background)
+            static var totalCreatedOrUpdatedThisRun = 0
+            static var currentBatch: [Comic] = []
         }
         
-        context.perform {
-            for comic in currentBatch {
-                let fetchRequest: NSFetchRequest<ManagedComic> = ManagedComic.fetchRequest()
-                fetchRequest.predicate = NSPredicate(format: "number = %u", comic.number)
-                if let matchingComic = (try? context.fetch(fetchRequest))?.first {
-                    matchingComic.updateWithComic(comic)
-                } else {
-                    ManagedComic.createWithComic(comic, in: context)
+        BatchQueue.queue.async {
+            if let comic = comic {
+                BatchQueue.currentBatch.append(comic)
+                BatchQueue.totalCreatedOrUpdatedThisRun += 1
+                
+                if forceSave {
+                    NSLog("Forced save after downloading comic: \(comic.number)")
                 }
             }
             
-            if context.saveOrRollback() {
-                NSLog("Loaded comic numbers [\((currentBatch.map { "\($0.number)" }).joined(separator: ", "))]")
+            if BatchQueue.totalCreatedOrUpdatedThisRun > batchingThreshold, BatchQueue.currentBatch.count < batchSize, !forceSave {
+                return
             }
             
-            currentBatch.removeAll()
+            let batchToSave = BatchQueue.currentBatch
+            BatchQueue.currentBatch.removeAll()
+            
+            context.perform {
+                for comic in batchToSave {
+                    // Create or update comic in database.
+                    let fetchRequest: NSFetchRequest<ManagedComic> = ManagedComic.fetchRequest()
+                    fetchRequest.predicate = NSPredicate(format: "number = %u", comic.number)
+                    if let matchingComic = (try? context.fetch(fetchRequest))?.first {
+                        matchingComic.updateWithComic(comic)
+                    } else {
+                        ManagedComic.createWithComic(comic, in: context)
+                    }
+                }
+                
+                let _ = context.saveOrRollback()
+            }
         }
     }
 }
 
-extension ManagedComic {
+// Enables creating or updateing core data managed comics from ComicFetcher downloaded comics.
+fileprivate extension ManagedComic {
     func updateWithComic(_ comic: Comic) {
         alternateText = comic.alternateText.count > 0 ? comic.alternateText : nil
         
@@ -116,7 +146,7 @@ extension ManagedComic {
     }
 }
 
-extension NSManagedObjectContext {
+fileprivate extension NSManagedObjectContext {
     public func saveOrRollback() -> Bool {
         do {
             try save()

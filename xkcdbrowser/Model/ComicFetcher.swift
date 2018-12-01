@@ -9,11 +9,23 @@
 import Foundation
 import UIKit
 
+// API endpoints.
 private let currentComicURLString = "https://xkcd.com/info.0.json"
 private let numberedComicURLString = "https://xkcd.com/%u/info.0.json"
 
+/**
+ A collection of functions to download and parse comics and images.
+ This encapsulates the JSON API.
+ */
 struct ComicFetcher {
-    static func fetchComicWithNumber(_ number: UInt?, completion: @escaping (Comic?) -> Void) {
+    /**
+     Download a specific single comic
+     - Parameters:
+        - number: The number of the comic to download or nil to download the latest comic.
+        - completion: A callback with the downloaded comic or nil if no comic was found.
+        - comic: The downloaded comic or nil if no comic was found.
+     */
+    static func fetchComicWithNumber(_ number: UInt?, completion: @escaping (_ comic: Comic?) -> Void) {
         let urlString: String
         if let number = number {
             urlString = String(format: numberedComicURLString, number)
@@ -40,7 +52,15 @@ struct ComicFetcher {
         }.resume()
     }
     
-    static func fetchComicsWithNumbers(_ first: UInt, through last: UInt, completion: @escaping (Comic?) -> Void) {
+    /**
+     Download a series of comics.
+     - Parameters:
+        - first: The number of the first comic in the series.
+        - last: The number of the last comic in the series.
+        - completion: A callback called once for each number.
+        - comic: The downloaded comic or nil if no comic was found.
+     */
+    static func fetchComicsWithNumbers(_ first: UInt, through last: UInt, completion: @escaping (_ comic: Comic?) -> Void) {
         fetchComicWithNumber(first) { (comic) in
             completion(comic)
             
@@ -51,12 +71,21 @@ struct ComicFetcher {
                 } else {
                     newFirst = first - 1
                 }
+                // Call recursively with the remaining range of numbers.
                 fetchComicsWithNumbers(newFirst, through: last, completion: completion)
             }
         }
     }
     
-    static func loadImageForURL(_ imageURL: URL, highResolution: Bool, completion: @escaping (UIImage?) -> Void) {
+    /**
+     Downloads the comic image from a URL.
+     - Parameters:
+        - imageURL: The URL provided by the API for a comic image.
+        - highResolution: Flag to turn on high resolution image downloading. If the high resolution image can't be found, it will fall back to the normal resolution image.
+        - completion: A callback with the downloaded image or nil if the image was not found.
+        - image: The comic image or nil
+     */
+    static func loadImageForURL(_ imageURL: URL, highResolution: Bool, completion: @escaping (_ image: UIImage?) -> Void) {
         var modifiedURL = imageURL
         if highResolution && !imageURL.absoluteString.contains("_2x.png") {
             modifiedURL = URL(string: imageURL.absoluteString.replacingOccurrences(of: ".png", with: "_2x.png"))!
@@ -65,6 +94,7 @@ struct ComicFetcher {
         URLSession.shared.dataTask(with: modifiedURL) { (data, response, error) in
             guard let data = data, let image = UIImage(data: data) else {
                 if highResolution {
+                    // The high resolution image download failed, fall back to normal resolution.
                     loadImageForURL(imageURL, highResolution: false, completion: completion)
                 }
                 return
@@ -74,71 +104,29 @@ struct ComicFetcher {
             }
         }.resume()
     }
-    
-//    static func collectStatsForAllComics() {
-//        fetchComicWithNumber(nil) { (currentComic) in
-//            guard let currentComic = currentComic else {
-//                NSLog("Current comic is missing.")
-//                return
-//            }
-//
-//            NSLog("Fetched current comic.")
-//
-//            fetchComicBeforeNumber(currentComic.number)
-//        }
-//    }
-    
-//    private static func fetchComicBeforeNumber(_ number: UInt) {
-//        if number > 1 {
-//            fetchComicWithNumber(number - 1) { (comic) in
-//                guard let _ = comic else {
-//                    NSLog("Comic \(number - 1) is missing.")
-//                    fetchComicBeforeNumber(number - 1)
-//                    return
-//                }
-//
-//                NSLog("Fetched comic \(number - 1).")
-//
-////                if comic.alternateText.count == 0 {
-////                    NSLog("Comic \(number - 1) is missing alt text.")
-////                }
-//
-////                if comic.link.count > 0 {
-////                    NSLog("Comic \(number - 1) is has a link: \(comic.link)")
-////                }
-//
-////                if comic.news.count > 0 {
-////                    NSLog("Comic \(number - 1) is has news: \(comic.news)")
-////                }
-//
-////                if comic.title != comic.safeTitle {
-////                    NSLog("Comic \(number - 1) is has differing titles: title = \(comic.title), safe = \(comic.safeTitle)")
-////                }
-//
-////                if comic.transcript.count > 0 {
-////                    NSLog("Comic \(number - 1) is has a transcript: \(comic.transcript)")
-////                }
-//
-//
-//                fetchComicBeforeNumber(number - 1)
-//            }
-//        } else {
-//            NSLog("Done.")
-//        }
-//    }
 }
 
+/**
+ The ComicFetcher representation of a comic.
+ */
 struct Comic: Codable {
+    // #404 is missing.
     let number: UInt
+    // HTML snippet
     let title: String
+    // Plain text (#259 & #472 have non-plain-text titles.)
     let safeTitle: String
     let year: String
     let month: String
     let day: String
     let image: URL
+    // Displayed when you hover over the image on the webpage.
     let alternateText: String
+    // URLs that appear when you click the image.
     let link: String
+    // HTML snippet that appears at the top of the webpage.
     let news: String
+    // A text description of the image.
     let transcript: String
     
     enum CodingKeys: String, CodingKey {
@@ -155,11 +143,3 @@ struct Comic: Codable {
         case transcript
     }
 }
-
-// Final Key counts: ["num": 2075, "day": 2075, "year": 2075, "alt": 2072, "link": 54, "img": 2075, "news": 49, "transcript": 1666, "month": 2075, "safe_title": 2075, "title": 2075]
-// Links are URLs that appear when you click the image.
-// News is HTML snippets that appear at the top of the page
-// Title is an HTML snippet. Safe Title is just text. (#259 & #472 have non-plain-text titles)
-// Alt text is displayed when you hover over the image. Some don't have alt text. #1525, #1506, & #1193 have no alt text.
-// Transcript is a text description of the comic (like a script) that he stopped doing a long time ago. I'm not sure how to parse or present it.
-// #404 is missing.

@@ -9,6 +9,8 @@
 import Foundation
 
 extension String {
+    // A lowercased non-diacritic version of this string
+    // used for faster core data comparisons.
     var normalized: String {
         return folding(options: [.diacriticInsensitive, .caseInsensitive], locale: .current)
     }

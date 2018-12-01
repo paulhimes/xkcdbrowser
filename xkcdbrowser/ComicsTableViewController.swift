@@ -9,8 +9,12 @@
 import UIKit
 import CoreData
 
+/**
+ A searchable table of xkcd comics.
+ */
 class ComicsTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UISearchResultsUpdating {
 
+    /** A main thread context used to populate the table. */
     var managedObjectContext: NSManagedObjectContext? = nil
 
     private let imageCache = NSCache<NSString, UIImage>()
@@ -30,10 +34,13 @@ class ComicsTableViewController: UITableViewController, NSFetchedResultsControll
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Apply theme and styling.
         styleNavigationBar()
         tableView.sectionIndexColor = .black
         tableView.sectionIndexTrackingBackgroundColor = .xkcdBlueWithAlpha
         
+        // Wire up the search controller.
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.tintColor = .white
@@ -42,8 +49,8 @@ class ComicsTableViewController: UITableViewController, NSFetchedResultsControll
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
+        clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
     }
 
     // MARK: - Segues
@@ -53,7 +60,9 @@ class ComicsTableViewController: UITableViewController, NSFetchedResultsControll
             if let indexPath = tableView.indexPathForSelectedRow {
             let comic = fetchedResultsController.object(at: indexPath)
                 let controller = (segue.destination as! UINavigationController).topViewController as! ComicDetailsViewController
+                // Pass the data model to the detail view controller.
                 controller.comic = comic
+                // More split view controller back button wiring.
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
             }
@@ -85,133 +94,80 @@ class ComicsTableViewController: UITableViewController, NSFetchedResultsControll
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: ComicTableViewCell.cellIdentifier, for: indexPath) as! ComicTableViewCell
         let comic = fetchedResultsController.object(at: indexPath)
         configureCell(cell, forIndexPath: indexPath, withComic: comic)
         return cell
     }
 
-    func configureCell(_ cell: UITableViewCell, forIndexPath indexPath: IndexPath?, withComic comic: ManagedComic) {
+    /**
+     Apply the given model object to this table cell.
+     - Parameters:
+        - cell: The cell to populated with data.
+        - forIndexPath: The indexpath of the cell at the time it was configured. This is used for asynchronous loading to guard against populating the wrong cell due to cell reuse.
+        - withComic: The model object used to configure the cell.
+     */
+    private func configureCell(_ cell: ComicTableViewCell, forIndexPath indexPath: IndexPath?, withComic comic: ManagedComic) {
         cell.textLabel?.text = "\(comic.safeTitle)"
         cell.detailTextLabel?.text = "No. \(comic.number) • \(dateFormatter.string(from: comic.date))"
-        cell.imageView?.image = ComicsTableViewController.thumbnailFromImage(UIImage())
-        cell.imageView?.layer.shadowColor = UIColor.black.cgColor
-        cell.imageView?.layer.shadowRadius = 2
-        cell.imageView?.clipsToBounds = false
-        cell.imageView?.layer.shadowOpacity = 0.1
-        cell.imageView?.layer.shadowOffset = CGSize(width: 2, height: 2)
-
+        cell.setComicImage(UIImage())
+        
+        // Attempt to use a cached image first.
         let imageURLString = comic.image.absoluteString
         if let cachedImage = imageCache.object(forKey: imageURLString as NSString) {
-            cell.imageView?.image = ComicsTableViewController.thumbnailFromImage(cachedImage)
+            // Using cached image.
+            cell.setComicImage(cachedImage)
         } else {
+            // Download a fresh copy of the image.
             guard let indexPath = indexPath else { return }
             ComicFetcher.loadImageForURL(comic.image, highResolution: false) { [weak self] (image) in
-                guard let cell = self?.tableView.cellForRow(at: indexPath) else { return }
+                guard let cell = self?.tableView.cellForRow(at: indexPath) as? ComicTableViewCell else { return }
                 guard let image = image else {
                     cell.imageView?.image = nil
                     return
                 }
+                // Save the image to the cache.
                 self?.imageCache.setObject(image, forKey: imageURLString as NSString)
-                cell.imageView?.image = ComicsTableViewController.thumbnailFromImage(image)
+                cell.setComicImage(image)
             }
         }
-    }
-    
-    private static func thumbnailFromImage(_ image: UIImage) -> UIImage {
-        let baseThumbnailSize: Double = 60
-        let maximumRotationDegree: Double = 10
-        let radians = maximumRotationDegree * .pi / 180
-        let thumbnailSizeAfterRotation = (sin(radians) + cos(radians)) * baseThumbnailSize
-        
-        let thumbnailSize = CGSize(width: thumbnailSizeAfterRotation, height: thumbnailSizeAfterRotation)
-        UIGraphicsBeginImageContextWithOptions(thumbnailSize, false, 0)
-        
-        let context = UIGraphicsGetCurrentContext()
-        
-        context?.saveGState()
-        
-        context?.translateBy(x: thumbnailSize.width / 2, y: thumbnailSize.height / 2)
-        
-        var randomDegree = 0
-        for _ in 0..<10 {
-            randomDegree = Int(arc4random_uniform(UInt32(2 * maximumRotationDegree))) - Int(maximumRotationDegree)
-            if randomDegree != 0 {
-                break
-            }
-        }
-        
-        context?.rotate(by: CGFloat(randomDegree) * .pi / 180)
-
-        context?.translateBy(x: -thumbnailSize.width / 2, y: -thumbnailSize.height / 2)
-        
-        // Scale input image to fit base thumbnail size.
-        let scaledImageSize: CGSize
-        if image.size.width / image.size.height * CGFloat(baseThumbnailSize) > CGFloat(baseThumbnailSize) {
-            // Scale the width to fit.
-            scaledImageSize = CGSize(width: CGFloat(baseThumbnailSize),
-                                     height: image.size.height / image.size.width * CGFloat(baseThumbnailSize))
-        } else {
-            // Scale the height to fit.
-            scaledImageSize = CGSize(width: image.size.width / image.size.height * CGFloat(baseThumbnailSize),
-                                     height: CGFloat(baseThumbnailSize))
-        }
-        
-        let scaledImageRect = CGRect(x: (thumbnailSize.width - scaledImageSize.width) / 2,
-                                     y: (thumbnailSize.height - scaledImageSize.height) / 2,
-                                     width: scaledImageSize.width,
-                                     height: scaledImageSize.height)
-        
-        image.draw(in: scaledImageRect)
-        
-        context?.restoreGState()
-        
-        let thumbnailImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return thumbnailImage
     }
 
     // MARK: - Fetched results controller
 
-    var fetchedResultsController: NSFetchedResultsController<ManagedComic> {
+    private var fetchedResultsController: NSFetchedResultsController<ManagedComic> {
         if _fetchedResultsController != nil {
             return _fetchedResultsController!
         }
         
         let fetchRequest: NSFetchRequest<ManagedComic> = ManagedComic.fetchRequest()
-        
-        // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
         
-        // Edit the sort key as appropriate.
-        let sortDescriptor = NSSortDescriptor(key: "number", ascending: false)
+        // Sort comics from newest to oldest.
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "number", ascending: false)]
         
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
+        // Filter the results based on the current search string, if it is not empty.
         if let searchString = searchController.searchBar.text, searchString.count > 0 {
+            // Search String 1: Remove all alphanumeric characters and replace with "*" to allow wild card matching.
             let starryString = "*\(searchString.components(separatedBy: CharacterSet.alphanumerics.inverted).joined(separator: "*"))*".normalized
+            // Search String 2: Include only decimal digits for searching by comic number.
             let numberString = searchString.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+            // Search normalized versions of these attributes for matches: safeTitle, number, alternateText, transcript, link.
             fetchRequest.predicate = NSPredicate(format: "safeTitleNormalized LIKE %@ || number == %@ || alternateTextNormalized LIKE %@ || transcriptNormalized LIKE %@ || linkNormalized LIKE %@", starryString, numberString, starryString, starryString, starryString)
         }
         
-        // Edit the section name key path and cache name if appropriate.
-        // nil for section name key path means "no sections".
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: "year", cacheName: nil)
-        aFetchedResultsController.delegate = self
-        _fetchedResultsController = aFetchedResultsController
+        _fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: "year", cacheName: nil)
+        _fetchedResultsController?.delegate = self
         
         do {
             try _fetchedResultsController!.performFetch()
         } catch {
-             // Replace this implementation with code to handle the error appropriately.
-             // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-             let nserror = error as NSError
-             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            NSLog("A programming error caused the core data fetch to fail: \(error)")
         }
         
         return _fetchedResultsController!
     }
-    var _fetchedResultsController: NSFetchedResultsController<ManagedComic>? = nil
+    private var _fetchedResultsController: NSFetchedResultsController<ManagedComic>? = nil
 
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
@@ -235,9 +191,9 @@ class ComicsTableViewController: UITableViewController, NSFetchedResultsControll
             case .delete:
                 tableView.deleteRows(at: [indexPath!], with: .fade)
             case .update:
-                configureCell(tableView.cellForRow(at: indexPath!)!, forIndexPath: indexPath, withComic: anObject as! ManagedComic)
+                configureCell(tableView.cellForRow(at: indexPath!) as! ComicTableViewCell, forIndexPath: indexPath, withComic: anObject as! ManagedComic)
             case .move:
-                configureCell(tableView.cellForRow(at: indexPath!)!, forIndexPath: indexPath, withComic: anObject as! ManagedComic)
+                configureCell(tableView.cellForRow(at: indexPath!) as! ComicTableViewCell, forIndexPath: indexPath, withComic: anObject as! ManagedComic)
                 tableView.moveRow(at: indexPath!, to: newIndexPath!)
         }
     }
