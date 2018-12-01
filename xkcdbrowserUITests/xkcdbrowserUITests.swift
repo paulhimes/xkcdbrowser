@@ -2,7 +2,7 @@
 //  xkcdbrowserUITests.swift
 //  xkcdbrowserUITests
 //
-//  Created by Paul Himes on 11/24/18.
+//  Created by Paul Himes on 12/1/18.
 //  Copyright © 2018 Tin Whistle. All rights reserved.
 //
 
@@ -22,13 +22,13 @@ class xkcdbrowserUITests: XCTestCase {
         // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testSearch() {
+        let app = XCUIApplication()
+        app.navigationBars["No Comic Selected"].buttons["Comics are this way!"].tap()
+        app/*@START_MENU_TOKEN@*/.tables.staticTexts["Tectonics Game"]/*[[".otherElements[\"dismiss popup\"].tables",".cells.staticTexts[\"Tectonics Game\"]",".staticTexts[\"Tectonics Game\"]",".otherElements[\"PopoverDismissRegion\"].tables",".tables"],[[[-1,4,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0,0]]@END_MENU_TOKEN@*/.tap()
+        app/*@START_MENU_TOKEN@*/.otherElements["PopoverDismissRegion"]/*[[".otherElements[\"dismiss popup\"]",".otherElements[\"PopoverDismissRegion\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.children(matching: .window).element(boundBy: 0).children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .scrollView).element.tap()
+        
     }
 
 }

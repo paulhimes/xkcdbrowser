@@ -11,6 +11,7 @@
 		8B4974AC21B273630035F00E /* ComicManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B4974AB21B273630035F00E /* ComicManagerTests.swift */; };
 		8B4974AD21B27D080035F00E /* ManagedComic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B7021AB31CF0047EBD2 /* ManagedComic+CoreDataClass.swift */; };
 		8B4974B521B281D60035F00E /* xkcdbrowser.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3821A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld */; };
+		8B4974C421B286550035F00E /* xkcdbrowserUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B5B21A9F7BC0047EBD2 /* xkcdbrowserUITests.swift */; };
 		8BF22B3721A9F7BA0047EBD2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3621A9F7BA0047EBD2 /* AppDelegate.swift */; };
 		8BF22B3A21A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3821A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodeld */; };
 		8BF22B3C21A9F7BA0047EBD2 /* ComicsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B3B21A9F7BA0047EBD2 /* ComicsTableViewController.swift */; };
@@ -31,6 +32,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8B4974BF21B2862E0035F00E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BF22B2B21A9F7BA0047EBD2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8BF22B3221A9F7BA0047EBD2;
+			remoteInfo = xkcdbrowser;
+		};
 		8BF22B4D21A9F7BC0047EBD2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8BF22B2B21A9F7BA0047EBD2 /* Project object */;
@@ -43,6 +51,7 @@
 /* Begin PBXFileReference section */
 		8B4974A821B2541A0035F00E /* ComicFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicFetcherTests.swift; sourceTree = "<group>"; };
 		8B4974AB21B273630035F00E /* ComicManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicManagerTests.swift; sourceTree = "<group>"; };
+		8B4974BA21B2862E0035F00E /* xkcdbrowserUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = xkcdbrowserUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF22B3321A9F7BA0047EBD2 /* xkcdbrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xkcdbrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BF22B3621A9F7BA0047EBD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BF22B3921A9F7BA0047EBD2 /* xkcdbrowser.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = xkcdbrowser.xcdatamodel; sourceTree = "<group>"; };
@@ -70,6 +79,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8B4974B721B2862E0035F00E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BF22B3021A9F7BA0047EBD2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -102,6 +118,7 @@
 			children = (
 				8BF22B3321A9F7BA0047EBD2 /* xkcdbrowser.app */,
 				8BF22B4C21A9F7BC0047EBD2 /* xkcdbrowserTests.xctest */,
+				8B4974BA21B2862E0035F00E /* xkcdbrowserUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -178,6 +195,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8B4974B921B2862E0035F00E /* xkcdbrowserUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B4974C121B2862E0035F00E /* Build configuration list for PBXNativeTarget "xkcdbrowserUITests" */;
+			buildPhases = (
+				8B4974B621B2862E0035F00E /* Sources */,
+				8B4974B721B2862E0035F00E /* Frameworks */,
+				8B4974B821B2862E0035F00E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8B4974C021B2862E0035F00E /* PBXTargetDependency */,
+			);
+			name = xkcdbrowserUITests;
+			productName = xkcdbrowserUITests;
+			productReference = 8B4974BA21B2862E0035F00E /* xkcdbrowserUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		8BF22B3221A9F7BA0047EBD2 /* xkcdbrowser */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8BF22B6021A9F7BC0047EBD2 /* Build configuration list for PBXNativeTarget "xkcdbrowser" */;
@@ -223,6 +258,10 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Tin Whistle";
 				TargetAttributes = {
+					8B4974B921B2862E0035F00E = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 8BF22B3221A9F7BA0047EBD2;
+					};
 					8BF22B3221A9F7BA0047EBD2 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -247,11 +286,19 @@
 			targets = (
 				8BF22B3221A9F7BA0047EBD2 /* xkcdbrowser */,
 				8BF22B4B21A9F7BC0047EBD2 /* xkcdbrowserTests */,
+				8B4974B921B2862E0035F00E /* xkcdbrowserUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8B4974B821B2862E0035F00E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BF22B3121A9F7BA0047EBD2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -272,6 +319,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8B4974B621B2862E0035F00E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B4974C421B286550035F00E /* xkcdbrowserUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8BF22B2F21A9F7BA0047EBD2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -307,6 +362,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8B4974C021B2862E0035F00E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8BF22B3221A9F7BA0047EBD2 /* xkcdbrowser */;
+			targetProxy = 8B4974BF21B2862E0035F00E /* PBXContainerItemProxy */;
+		};
 		8BF22B4E21A9F7BC0047EBD2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8BF22B3221A9F7BA0047EBD2 /* xkcdbrowser */;
@@ -334,6 +394,44 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8B4974C221B2862E0035F00E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U48P68REXM;
+				INFOPLIST_FILE = xkcdbrowserUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tnwsl.xkcdbrowserUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = xkcdbrowser;
+			};
+			name = Debug;
+		};
+		8B4974C321B2862E0035F00E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = U48P68REXM;
+				INFOPLIST_FILE = xkcdbrowserUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tnwsl.xkcdbrowserUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = xkcdbrowser;
+			};
+			name = Release;
+		};
 		8BF22B5E21A9F7BC0047EBD2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -531,6 +629,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8B4974C121B2862E0035F00E /* Build configuration list for PBXNativeTarget "xkcdbrowserUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B4974C221B2862E0035F00E /* Debug */,
+				8B4974C321B2862E0035F00E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8BF22B2E21A9F7BA0047EBD2 /* Build configuration list for PBXProject "xkcdbrowser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
