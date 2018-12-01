@@ -147,7 +147,7 @@ fileprivate extension ManagedComic {
 }
 
 fileprivate extension NSManagedObjectContext {
-    public func saveOrRollback() -> Bool {
+    func saveOrRollback() -> Bool {
         do {
             try save()
             return true

@@ -35,8 +35,8 @@ class ComicTableViewCell: UITableViewCell {
     
     // Apply a size transform, padding, and random rotation to the image.
     private static func thumbnailFromImage(_ image: UIImage) -> UIImage {
-        let baseThumbnailSize: Double = 60
-        let maximumRotationDegree: Double = 10
+        let baseThumbnailSize: Double = 100
+        let maximumRotationDegree: Double = 20
         let radians = maximumRotationDegree * .pi / 180
         let thumbnailSizeAfterRotation = (sin(radians) + cos(radians)) * baseThumbnailSize
         let thumbnailSize = CGSize(width: thumbnailSizeAfterRotation, height: thumbnailSizeAfterRotation)

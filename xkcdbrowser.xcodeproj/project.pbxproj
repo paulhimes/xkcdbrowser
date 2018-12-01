@@ -15,7 +15,6 @@
 		8BF22B4321A9F7BC0047EBD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BF22B4221A9F7BC0047EBD2 /* Assets.xcassets */; };
 		8BF22B4621A9F7BC0047EBD2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF22B4421A9F7BC0047EBD2 /* LaunchScreen.storyboard */; };
 		8BF22B5121A9F7BC0047EBD2 /* xkcdbrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B5021A9F7BC0047EBD2 /* xkcdbrowserTests.swift */; };
-		8BF22B5C21A9F7BC0047EBD2 /* xkcdbrowserUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B5B21A9F7BC0047EBD2 /* xkcdbrowserUITests.swift */; };
 		8BF22B6A21A9FD450047EBD2 /* ComicFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */; };
 		8BF22B6B21A9FD450047EBD2 /* ComicFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6921A9FD450047EBD2 /* ComicFetcher.swift */; };
 		8BF22B6D21AA6DA70047EBD2 /* ComicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF22B6C21AA6DA70047EBD2 /* ComicManager.swift */; };
@@ -357,7 +356,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BF22B7821AB32C10047EBD2 /* ManagedComic+CoreDataClass.swift in Sources */,
-				8BF22B5C21A9F7BC0047EBD2 /* xkcdbrowserUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
